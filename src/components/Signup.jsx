@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 
-const Signup = () => {
+const Signup = ({ setToken }) => {
     const [nombre, setNombre] = useState('');
     const [email, setEmail] = useState('');
-    const [lastname, setLastname] = useState('');
-    const [password, setPassword] = useState('');
+    const [apellido, setApellido] = useState('');
     const [error, setError] = useState(null);
 
     const handleSubmit = async (e) => {
@@ -13,8 +12,7 @@ const Signup = () => {
         const userData = {
             nombre,
             email,
-            lastname,
-            password
+            apellido  // Usamos apellido como credencial de validación
         };
 
         try {
@@ -31,8 +29,9 @@ const Signup = () => {
             }
 
             const data = await response.json();
-            alert('Usuario creado con éxito');
-            console.log(data);
+            alert('Usuario registrado con éxito');
+            // Opcional: auto-login después del registro
+            // setToken(data.access_token);
         } catch (err) {
             setError(err.message);
         }
@@ -44,19 +43,30 @@ const Signup = () => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Nombre</label>
-                    <input type="text" value={nombre} onChange={(e) => setNombre(e.target.value)} required />
+                    <input 
+                        type="text" 
+                        value={nombre} 
+                        onChange={(e) => setNombre(e.target.value)} 
+                        required 
+                    />
                 </div>
                 <div>
                     <label>Correo electrónico</label>
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input 
+                        type="email" 
+                        value={email} 
+                        onChange={(e) => setEmail(e.target.value)} 
+                        required 
+                    />
                 </div>
                 <div>
-                    <label>Apellido</label>
-                    <input type="text" value={lastname} onChange={(e) => setLastname(e.target.value)} required />
-                </div>
-                <div>
-                    <label>Contraseña</label>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    <label>Apellido (será tu credencial de validación)</label>
+                    <input 
+                        type="text" 
+                        value={apellido} 
+                        onChange={(e) => setApellido(e.target.value)} 
+                        required 
+                    />
                 </div>
                 <button type="submit">Registrar</button>
             </form>

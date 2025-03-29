@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 
 const Login = ({ setToken }) => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
+    const [apellido, setApellido] = useState('');
     const [error, setError] = useState(null);
 
     const handleSubmit = async (e) => {
@@ -10,7 +10,7 @@ const Login = ({ setToken }) => {
 
         const loginData = {
             email,
-            password,
+            apellido  // Validamos con el apellido en lugar de contraseña
         };
 
         try {
@@ -23,11 +23,11 @@ const Login = ({ setToken }) => {
             });
 
             if (!response.ok) {
-                throw new Error('Credenciales inválidas');
+                throw new Error('Credenciales inválidas. Verifica tu email y apellido.');
             }
 
             const data = await response.json();
-            setToken(data.access_token);  // Almacenar el token en el estado
+            setToken(data.access_token);
             alert('Inicio de sesión exitoso');
         } catch (err) {
             setError(err.message);
@@ -40,11 +40,21 @@ const Login = ({ setToken }) => {
             <form onSubmit={handleSubmit}>
                 <div>
                     <label>Correo electrónico</label>
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
+                    <input 
+                        type="email" 
+                        value={email} 
+                        onChange={(e) => setEmail(e.target.value)} 
+                        required 
+                    />
                 </div>
                 <div>
-                    <label>Contraseña</label>
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
+                    <label>Apellido (credencial de validación)</label>
+                    <input 
+                        type="text" 
+                        value={apellido} 
+                        onChange={(e) => setApellido(e.target.value)} 
+                        required 
+                    />
                 </div>
                 <button type="submit">Iniciar sesión</button>
             </form>
