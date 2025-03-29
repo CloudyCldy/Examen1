@@ -14,7 +14,7 @@ const Login = ({ setToken }) => {
         };
 
         try {
-            const response = await fetch('https://13.218.99.111:8000/login', {
+            const response = await fetch('https://13.218.99.111/login', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

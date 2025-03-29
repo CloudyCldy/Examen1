@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const API_URL = "https://13.218.99.111:8000";  // Cambia si tu FastAPI está en otro puerto o servidor
+const API_URL = "https://13.218.99.111";  // Cambia si tu FastAPI está en otro puerto o servidor
 
 // Obtener todos los usuarios
 export const getUsuarios = async () => {
